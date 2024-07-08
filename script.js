@@ -1,4 +1,3 @@
-// script.js
 async function fetchEarthquakeData() {
     const response = await fetch("https://api.p2pquake.net/v2/history?codes=551&limit=1");
     const js_l = await response.json();
@@ -86,11 +85,11 @@ async function fetchEarthquakeData() {
     }
 
     let singen = hypocenter || '-';
-    let singen_j = hypocenter ? `#${hypocenter} ` : '';
+    let singen_j = hypocenter ? `${hypocenter}`  : '';
     let magu = magnitude !== -1 ? `M${magnitude}` : '-';
     let hukasa = depth !== -1 ? `約${depth}km` : '-';
 
-    let pointsText = "【#各地の震度情報】 \n";
+    let pointsText = "各地の震度情報です。";
     let points = Array(10).fill("");
     const scales = {
         '-1': 9, '10': 8, '20': 7, '30': 6, '40': 5,
@@ -107,12 +106,12 @@ async function fetchEarthquakeData() {
             let pointName = point['pref'];
 
             if (points[scale] === "") {
-                points[scale] += `\n[震度${scalesText[point['scale']]}]`;
+                points[scale] +=  `[震度${scalesText[point['scale']]}]`;
             }
 
             if (!pointNameList[scale].includes(pointName)) {
                 pointNameList[scale].push(pointName);
-                points[scale] += `\n${pointName}: `;
+                points[scale] +=  `${pointName}: `;
             }
 
             points[scale] += `${point['addr']} `;
@@ -143,19 +142,22 @@ async function fetchEarthquakeData() {
             break;
         case "Foreign":
             info = "遠地地震に関する情報";
-            text = `${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}`
+            text =` ${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}`
             break;
         default:
             info = "その他";
     }
 
     let Quake_text = text;
+    let tickerText = Quake_text + pointsText;
 
-    document.getElementById('ticker-text').innerText = Quake_text + "\n" + pointsText;
+    const tickerElement = document.getElementById('ticker-text');
+    tickerElement.innerText = tickerText;
+
+    const animationDuration = Math.max(tickerText.length * 0.1, 20);
+    tickerElement.style.animationDuration = `${animationDuration}s`;
 }
 
-// 初回実行
 fetchEarthquakeData();
 
-// 20秒ごとにデータを取得
 setInterval(fetchEarthquakeData, 20000);
