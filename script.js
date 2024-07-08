@@ -59,8 +59,8 @@ async function fetchEarthquakeData() {
         'Unknown': '津波の影響は不明です。',
         'Checking': '津波の影響を現在調査中です。',
         'NonEffective': '若干の海面変動が予想されますが、被害の心配はありません。',
-        'Watch': 'この地震で #津波注意報 が発表されています。',
-        'Warning': 'この地震で 津波警報等（ #大津波警報 ・ #津波警報 あるいは #津波注意報 ）が発表されています。'
+        'Watch': 'この地震で 津波注意報 が発表されています。',
+        'Warning': 'この地震で 津波警報等（ 大津波警報 ・ 津波警報 あるいは 津波注意報 ）が発表されています。'
     };
 
     const tsunamiLevels_emoji = {
@@ -85,7 +85,7 @@ async function fetchEarthquakeData() {
     }
 
     let singen = hypocenter || '-';
-    let singen_j = hypocenter ? `${hypocenter}`  : '';
+    let singen_j = hypocenter ? `#${hypocenter} ` : '';
     let magu = magnitude !== -1 ? `M${magnitude}` : '-';
     let hukasa = depth !== -1 ? `約${depth}km` : '-';
 
@@ -106,12 +106,12 @@ async function fetchEarthquakeData() {
             let pointName = point['pref'];
 
             if (points[scale] === "") {
-                points[scale] +=  `[震度${scalesText[point['scale']]}]`;
+                points[scale] += ` [震度${scalesText[point['scale']]}]`;
             }
 
             if (!pointNameList[scale].includes(pointName)) {
                 pointNameList[scale].push(pointName);
-                points[scale] +=  `${pointName}: `;
+                points[scale] += ` ${pointName}: `;
             }
 
             points[scale] += `${point['addr']} `;
@@ -142,14 +142,15 @@ async function fetchEarthquakeData() {
             break;
         case "Foreign":
             info = "遠地地震に関する情報";
-            text =` ${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}`
+            text = `${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}`
             break;
         default:
             info = "その他";
     }
 
     let Quake_text = text;
-    let tickerText = Quake_text + pointsText;
+    let guidance = "  | 📌 NanbuCameraの配信をご視聴いただきありがとうございます。この配信はNanbuCameraが地震監視を行っている配信となっています。地震が発生したら音声。映像でお知らせいたします。このテロップソフトはβ版のため、不具合が発生する可能性があります。"
+    let tickerText = Quake_text + guidance;
 
     const tickerElement = document.getElementById('ticker-text');
     tickerElement.innerText = tickerText;
