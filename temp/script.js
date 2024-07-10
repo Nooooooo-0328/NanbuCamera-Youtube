@@ -76,11 +76,10 @@ async function fetchEarthquakeData() {
     domesticTsunami_emoji = tsunamiLevels_emoji[_domesticTsunami];
 
     let jmaDatetime = js_l[0]['earthquake']['time'];
-    let jmaDatetime_time = "----年--日--時--分";
+    let jmaDatetime_time = "--日--時--分";
     try {
         jmaDatetime = new Date(jmaDatetime.replace(/\//g, "-"));
-        jmaDatetime__time = `${jmaDatetime.getDate()}日${jmaDatetime.getHours()}時${jmaDatetime.getMinutes()}分`;
-        jmaDatetime_time = `${jmaDatetime.getFullYear()}/${jmaDatetime.getMonth() + 1}/${jmaDatetime.getDate()} ${jmaDatetime.getHours()}時${jmaDatetime.getMinutes()}分`;
+        jmaDatetime_time = `${jmaDatetime.getDate()}日${jmaDatetime.getHours()}時${jmaDatetime.getMinutes()}分`;
     } catch (error) {
         console.error("Date parsing error:", error);
     }
@@ -90,9 +89,7 @@ async function fetchEarthquakeData() {
     let magu = magnitude !== -1 ? `M${magnitude}` : '-';
     let hukasa = depth !== -1 ? `約${depth}km` : '-';
 
-
-
-    let pointsText = "";
+    let pointsText = "各地の震度情報です。";
     let points = Array(10).fill("");
     const scales = {
         '-1': 9, '10': 8, '20': 7, '30': 6, '40': 5,
@@ -102,37 +99,27 @@ async function fetchEarthquakeData() {
         '-1': '', '10': '1', '20': '2', '30': '3', '40': '4', '45': '5弱', '50': '5強', '55': '6弱', '60': '6強', '70': '7'
     };
     let pointNameList = Array.from({ length: 10 }, () => []);
-    let hasData = false;
 
     for (let point of js_l[0]['points']) {
-        if (point['addr'].includes("真岡市")) {
-            let scale = scales[point['scale']];
-            if (scale !== undefined) {
-                hasData = true;
-                let pointName = point['pref'];
+        let scale = scales[point['scale']];
+        if (scale !== undefined) {
+            let pointName = point['pref'];
 
-                if (points[scale] === "") {
-                    points[scale] += `真岡市 - [震度${scalesText[point['scale']]}]`;
-                }
-
-                if (!pointNameList[scale].includes(pointName)) {
-                    pointNameList[scale].push(pointName);
-                    points[scale] += ``;
-                }
-
-                points[scale] += ``;
+            if (points[scale] === "") {
+                points[scale] += ` [震度${scalesText[point['scale']]}]`;
             }
-        }
-    }
 
-    if (!hasData) {
-        points[0] = "真岡市 - 震度0";
+            if (!pointNameList[scale].includes(pointName)) {
+                pointNameList[scale].push(pointName);
+                points[scale] += ` ${pointName}: `;
+            }
+
+            points[scale] += `${point['addr']} `;
+        }
     }
 
     for (let point of points) {
-        if (point !== "") {
-            pointsText += point + " ";
-        }
+        pointsText += point;
     }
 
     let info;
@@ -151,58 +138,27 @@ async function fetchEarthquakeData() {
             break;
         case "DetailScale":
             info = "各地の震度に関する情報";
-            Title_text = `【地震観測 | 配信アーカイブ | ${singen} (${magu})】${jmaDatetime_time} ${pointsText}`
-
-            Summary_column_text = (`【${info}】\n` +
-                `■発生時刻\n` +
-                `${jmaDatetime__time}\n` +
-                `■震源地\n` +
-                `${singen}\n` +
-                `■規模\n` +
-                `${magu}\n` +
-                `■深さ\n` +
-                `${hukasa}\n` +
-                `■最大震度\n` +
-                `${shindo_}\n` +
-                `${domesticTsunami_emoji}津波有無\n` +
-                `${domesticTsunami}\n\n` +
-                `#地震 ${singen_j}\n\n` +
-                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。`
-            )
-
+            text = `${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。マグニチュードは${magu}、深さは${hukasa}と推定されています。${domesticTsunami}`
             break;
         case "Foreign":
             info = "遠地地震に関する情報";
-            Title_text = `【地震観測 | 配信アーカイブ | ${singen} (${magu})】${jmaDatetime_time} ${pointsText}`
-
-            Summary_column_text = (`【${info}】\n` +
-                `■発生時刻\n` +
-                `${jmaDatetime__time}\n` +
-                `■震源地\n` +
-                `${singen}\n` +
-                `■規模\n` +
-                `${magu}\n` +
-                `■深さ\n` +
-                `${hukasa}\n` +
-                `■最大震度\n` +
-                `${shindo_}\n` +
-                `${domesticTsunami_emoji}津波有無\n` +
-                `${domesticTsunami}\n\n` +
-                `#地震 ${singen_j}\n\n` +
-                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。`
-            )
-
+            text = `${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}`
             break;
         default:
             info = "その他";
     }
 
-    const tickerElement = document.getElementById('Title-Quake-text');
-    tickerElement.innerText = Title_text;
+    let Quake_text = text;
+    let guidance = "  | 📌 NanbuCameraの配信をご視聴いただきありがとうございます。この配信はNanbuCameraが地震監視を行っている配信となっています。地震が発生したら音声。映像でお知らせいたします。このテロップソフトはβ版のため、不具合が発生する可能性があります。"
+    let tickerText = Quake_text + guidance;
 
-    const ticker_Element = document.getElementById('Summary_column-Quake-text');
-    ticker_Element.innerText = Summary_column_text;
+    const tickerElement = document.getElementById('ticker-text');
+    tickerElement.innerText = tickerText;
 
+    const animationDuration = Math.max(tickerText.length * 0.1, 20);
+    tickerElement.style.animationDuration = `${animationDuration}s`;
 }
 
 fetchEarthquakeData();
+
+setInterval(fetchEarthquakeData, 20000);
