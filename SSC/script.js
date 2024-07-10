@@ -1,3 +1,41 @@
+function copyText(elementId) {
+    var textToCopy = document.getElementById(elementId).innerText;
+    var tempInput = document.createElement('textarea');
+    tempInput.value = textToCopy;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    var messageElement = document.createElement('div');
+    messageElement.textContent = `テキストをコピーしました: ` + textToCopy;
+    messageElement.style.position = 'absolute';
+    messageElement.style.top = '-50px'; 
+    messageElement.style.left = '50%';
+    messageElement.style.transform = 'translateX(-50%)';
+    messageElement.style.padding = '10px';
+    messageElement.style.backgroundColor = '#4CAF50';
+    messageElement.style.color = 'white';
+    messageElement.style.borderRadius = '5px';
+    messageElement.style.zIndex = '9999';
+    messageElement.style.opacity = '0'; 
+    document.body.appendChild(messageElement);
+
+    messageElement.style.transition = 'top 0.3s ease-out, opacity 0.3s ease-out';
+    setTimeout(function() {
+        messageElement.style.top = '10px'; 
+        messageElement.style.opacity = '1'; 
+    }, 50); 
+
+    setTimeout(function() {
+        messageElement.style.top = '-50px'; 
+        messageElement.style.opacity = '0'; 
+        setTimeout(function() {
+            messageElement.remove(); 
+        }, 300);
+    }, 3000); 
+}
+
 async function fetchEarthquakeData() {
     const response = await fetch("https://api.p2pquake.net/v2/history?codes=551&limit=1");
     const js_l = await response.json();
@@ -105,14 +143,14 @@ async function fetchEarthquakeData() {
     let hasData = false;
 
     for (let point of js_l[0]['points']) {
-        if (point['addr'].includes("久喜市")) {
+        if (point['addr'].includes("真岡市")) {
             let scale = scales[point['scale']];
             if (scale !== undefined) {
                 hasData = true;
                 let pointName = point['pref'];
 
                 if (points[scale] === "") {
-                    points[scale] += `久喜市 - [震度${scalesText[point['scale']]}]`;
+                    points[scale] += `真岡市 - [震度${scalesText[point['scale']]}]`;
                 }
 
                 if (!pointNameList[scale].includes(pointName)) {
@@ -126,7 +164,7 @@ async function fetchEarthquakeData() {
     }
 
     if (!hasData) {
-        points[0] = "久喜市 - 震度0";
+        points[0] = "真岡市 - 震度0";
     }
 
     for (let point of points) {
@@ -167,8 +205,7 @@ async function fetchEarthquakeData() {
                 `${domesticTsunami_emoji}津波有無\n` +
                 `${domesticTsunami}\n\n` +
                 `#地震 ${singen_j}\n\n` +
-                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。\n`+
-                `プログラム - ©NanbuCamera`
+                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。`
             )
             break;
         case "Foreign":
@@ -189,8 +226,7 @@ async function fetchEarthquakeData() {
                 `${domesticTsunami_emoji}津波有無\n` +
                 `${domesticTsunami}\n\n` +
                 `#地震 ${singen_j}\n\n` +
-                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。\n` +
-                `プログラム - ©NanbuCamera`
+                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。`
             )
             break;
         default:

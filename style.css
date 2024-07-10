@@ -2,6 +2,11 @@
     animation: slide-in-left 1s ease-out;
 }
 
+#sub-title {
+    animation: slide-in-left 1s ease-out;
+}
+
+
 #url {
     animation: slide-in-left 1s ease-out;
 }

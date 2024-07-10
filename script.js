@@ -1,3 +1,41 @@
+function copyText(elementId) {
+    var textToCopy = document.getElementById(elementId).innerText;
+    var tempInput = document.createElement('textarea');
+    tempInput.value = textToCopy;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    var messageElement = document.createElement('div');
+    messageElement.textContent = `テキストをコピーしました: ` + textToCopy;
+    messageElement.style.position = 'absolute';
+    messageElement.style.top = '-50px'; 
+    messageElement.style.left = '50%';
+    messageElement.style.transform = 'translateX(-50%)';
+    messageElement.style.padding = '10px';
+    messageElement.style.backgroundColor = '#4CAF50';
+    messageElement.style.color = 'white';
+    messageElement.style.borderRadius = '5px';
+    messageElement.style.zIndex = '9999';
+    messageElement.style.opacity = '0'; 
+    document.body.appendChild(messageElement);
+
+    messageElement.style.transition = 'top 0.3s ease-out, opacity 0.3s ease-out';
+    setTimeout(function() {
+        messageElement.style.top = '10px'; 
+        messageElement.style.opacity = '1'; 
+    }, 50); 
+
+    setTimeout(function() {
+        messageElement.style.top = '-50px'; 
+        messageElement.style.opacity = '0'; 
+        setTimeout(function() {
+            messageElement.remove(); 
+        }, 300);
+    }, 3000); 
+}
+
 async function fetchEarthquakeData() {
     const response = await fetch("https://api.p2pquake.net/v2/history?codes=551&limit=1");
     const js_l = await response.json();
