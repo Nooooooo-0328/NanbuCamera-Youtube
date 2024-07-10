@@ -105,14 +105,14 @@ async function fetchEarthquakeData() {
     let hasData = false;
 
     for (let point of js_l[0]['points']) {
-        if (point['addr'].includes("真岡市")) {
+        if (point['addr'].includes("久喜市")) {
             let scale = scales[point['scale']];
             if (scale !== undefined) {
                 hasData = true;
                 let pointName = point['pref'];
 
                 if (points[scale] === "") {
-                    points[scale] += `真岡市 - [震度${scalesText[point['scale']]}]`;
+                    points[scale] += `久喜市 - [震度${scalesText[point['scale']]}]`;
                 }
 
                 if (!pointNameList[scale].includes(pointName)) {
@@ -126,7 +126,7 @@ async function fetchEarthquakeData() {
     }
 
     if (!hasData) {
-        points[0] = "真岡市 - 震度0";
+        points[0] = "久喜市 - 震度0";
     }
 
     for (let point of points) {
@@ -167,7 +167,8 @@ async function fetchEarthquakeData() {
                 `${domesticTsunami_emoji}津波有無\n` +
                 `${domesticTsunami}\n\n` +
                 `#地震 ${singen_j}\n\n` +
-                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。`
+                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。\n`+
+                `プログラム - ©NanbuCamera`
             )
             break;
         case "Foreign":
@@ -188,7 +189,8 @@ async function fetchEarthquakeData() {
                 `${domesticTsunami_emoji}津波有無\n` +
                 `${domesticTsunami}\n\n` +
                 `#地震 ${singen_j}\n\n` +
-                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。`
+                `本動画のタイトル・概要欄は以下のサイトにて自動生成されています。\n` +
+                `プログラム - ©NanbuCamera`
             )
             break;
         default:
