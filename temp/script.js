@@ -149,7 +149,7 @@ async function fetchEarthquakeData() {
     }
 
     let Quake_text = text;
-    let guidance = "  | 📌 NanbuCameraの配信をご視聴いただきありがとうございます。この配信はNanbuCameraが地震監視を行っている配信となっています。地震が発生したら音声。映像でお知らせいたします。このテロップソフトはβ版のため、不具合が発生する可能性があります。"
+    let guidance = "  | 📌 NanbuCameraの配信をご視聴いただきありがとうございます。この配信はNanbuCameraが地震監視を行っている配信となっています。地震が発生したら音声・映像でお知らせいたします。このテロップはβ版のため、不具合が発生する可能性があります。バグ等ありましたら X (旧: Twitter): @NanbuCamera まで、お願いいたします。"
     let tickerText = Quake_text + guidance;
 
     const tickerElement = document.getElementById('ticker-text');

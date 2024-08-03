@@ -37,7 +37,7 @@ function copyText(elementId) {
 }
 
 async function fetchEarthquakeData() {
-    const response = await fetch("https://api.p2pquake.net/v2/history?codes=551&limit=1");
+    const response = await fetch("https://api.p2pquake.net/v2/history?codes=551");
     const js_l = await response.json();
 
     let hypocenter = js_l[0]["earthquake"]["hypocenter"]["name"];
@@ -143,14 +143,14 @@ async function fetchEarthquakeData() {
     let hasData = false;
 
     for (let point of js_l[0]['points']) {
-        if (point['addr'].includes("久喜市")) {
+        if (point['addr'].includes("真岡市")) {
             let scale = scales[point['scale']];
             if (scale !== undefined) {
                 hasData = true;
                 let pointName = point['pref'];
 
                 if (points[scale] === "") {
-                    points[scale] += `久喜市 - [震度${scalesText[point['scale']]}]`;
+                    points[scale] += `真岡市 - [震度${scalesText[point['scale']]}]`;
                 }
 
                 if (!pointNameList[scale].includes(pointName)) {
@@ -164,7 +164,7 @@ async function fetchEarthquakeData() {
     }
 
     if (!hasData) {
-        points[0] = "久喜市 - 震度0";
+        points[0] = "真岡市 - 震度0";
     }
 
     for (let point of points) {

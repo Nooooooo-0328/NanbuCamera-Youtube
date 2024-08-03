@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NanbuCamera 地震監視放送</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="title-bar flex">
+            <img class="icon block" src="./Nanbu_icon.jpg"></img>
+            <h1 class="title block">NanbuCamera地震監視放送</h1>
+        </div>
+        <div class="content flex">
+            <div class="info">
+                <p id="day">土曜日</p>
+                <p id="date">2024/08/03</p>
+                <p id="time">06:00:00</p>
+            </div>
+            <div class="status">
+                <div id="statusWrapper" class="fade hide">
+                    <p id="statusLabel" class="status-label"></p>
+                    <p id="statusText" class="status-value"></p>
+                </div>
+                <p class="bgm-label">使用BGM</p>
+                <p class="bgm-value">Steadily - よね/Yone</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

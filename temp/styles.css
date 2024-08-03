@@ -18,11 +18,11 @@ body {
 }
 
 .category {
-    flex: 0 0 100px;
+    flex: 0 0 120px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 10px;
-    border-radius: 50%;
+    border-radius: 99999px;
 }
 
 .ticker {
