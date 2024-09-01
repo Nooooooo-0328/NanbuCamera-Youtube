@@ -122,35 +122,36 @@ async function fetchEarthquakeData() {
         pointsText += point;
     }
 
+    guidance = "   | [📌 ご案内] NanbuCameraの放送をご視聴いただきましてありがとうございます。本放送をご覧になられる方は必ず概要欄をご確認ください。 [🛑 本放送について] 本放送では、日本/韓国/台湾で地震が発生した際、音声と映像でお知らせいたします。急に音声が流れますので、音量にご注意ください。 [💻 使用ソフト] 本放送で使用しているソフトは以下の通りです。*印が付いているソフトは非配布ソフトです。 YDITS for Web / Nanbu Eq Service Bot Dev* / 強震モニタ / 사용자 맞춤형 지진정보서비스 / 地牛Wake Up! / Nanbu テロップ / Nanbu 時計 [🙏 開発者の皆様に感謝いたします。 | ⚠️ 配信の安定性について] 本放送は、できる限り安定した放送を心がけていますが、予期せぬトラブルにより配信が一時停止する場合がございます。その際は、ご理解のほどよろしくお願いいたします。 [📬 お問い合わせ] 本放送に関する、お問い合わせ又はご質問はX(旧: Twitter) @NanbuCamera まで、お願いいたします。 | v1.1.0"
+
     let info;
     switch (type) {
         case "ScalePrompt":
             info = "震度速報";
-            text = `${jmaDatetime_time}ごろ、最大震度${shindo_}を観測する地震がありました。新しい情報が入り次第お伝え致します。`
+            text = `[📣 ${info}] ${jmaDatetime_time}ごろ、最大震度${shindo_}を観測する地震がありました。新しい情報が入り次第お伝え致します。`
             break;
         case "Destination":
             info = "震源に関する情報";
-            text = `${jmaDatetime_time}ごろ、${singen}で地震がありました。を観測する地震がありました。新しい情報が入り次第お伝え致します。`
+            text = `[📣 ${info}] ${jmaDatetime_time}ごろ、${singen}で地震がありました。を観測する地震がありました。新しい情報が入り次第お伝え致します。`
             break;
         case "ScaleAndDestination":
             info = "震源 ・ 震度に関する情報";
-            text = `${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。`
+            text = `[📣 ${info}] ${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。`
             break;
         case "DetailScale":
             info = "各地の震度に関する情報";
-            text = `${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。マグニチュードは${magu}、深さは${hukasa}と推定されています。${domesticTsunami}`
+            text = `[📣 ${info}] ${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。マグニチュードは${magu}、深さは${hukasa}と推定されています。${domesticTsunami}` + guidance
             break;
         case "Foreign":
             info = "遠地地震に関する情報";
-            text = `${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}`
+            text = `[📣 ${info}] ${jmaDatetime_time}ごろ、${singen}で地震がありました。マグニチュードは${magu}、${domesticTsunami}` + guidance
             break;
         default:
             info = "その他";
     }
 
     let Quake_text = text;
-    let guidance = "  | 📌 NanbuCameraの配信をご視聴いただきありがとうございます。この配信はNanbuCameraが地震監視を行っている配信となっています。地震が発生したら音声・映像でお知らせいたします。このテロップはβ版のため、不具合が発生する可能性があります。バグ等ありましたら X (旧: Twitter): @NanbuCamera まで、お願いいたします。"
-    let tickerText = Quake_text + guidance;
+    let tickerText = Quake_text;
 
     const tickerElement = document.getElementById('ticker-text');
     tickerElement.innerText = tickerText;
