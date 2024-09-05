@@ -11,48 +11,68 @@ async function fetchEarthquakeData() {
 
     let shindo_, shindo__, domesticTsunami, domesticTsunami_emoji;
 
+    const tickerContainerElement = document.querySelector('.ticker-container');
+    tickerContainerElement.classList.remove(
+        "shindo-0", "shindo-1", "shindo-2", "shindo-3", "shindo-4", 
+        "shindo-5-", "shindo-5p", "shindo-6-", 
+        "shindo-6p", "shindo-7"
+    );
+
     switch (maxint) {
         case -1:
             shindo__ = "3";
             shindo_ = "-";
+            tickerContainerElement.classList.add("shindo-0");
             break;
         case 10:
             shindo__ = "1";
             shindo_ = "1";
+            tickerContainerElement.classList.add("shindo-1");
             break;
         case 20:
             shindo__ = "2";
             shindo_ = "2";
+            tickerContainerElement.classList.add("shindo-2");
             break;
         case 30:
             shindo__ = "3";
             shindo_ = "3";
+            tickerContainerElement.classList.add("shindo-3");
             break;
         case 40:
             shindo__ = "4";
             shindo_ = "4";
+            tickerContainerElement.classList.add("shindo-4");
             break;
         case 45:
             shindo__ = "5";
             shindo_ = "5弱";
+            tickerContainerElement.classList.add("shindo-5-");
             break;
         case 50:
             shindo__ = "5";
             shindo_ = "5強";
+            tickerContainerElement.classList.add("shindo-5p");
             break;
         case 55:
             shindo__ = "6";
             shindo_ = "6弱";
+            tickerContainerElement.classList.add("shindo-6-");
             break;
         case 60:
             shindo__ = "6";
             shindo_ = "6強";
+            tickerContainerElement.classList.add("shindo-6+");
             break;
         case 70:
             shindo__ = "7";
             shindo_ = "7";
+            tickerContainerElement.classList.add("shindo-7");
             break;
-    }
+        default:
+            tickerContainerElement.style.borderLeft = "none";
+            break;
+        }
 
     const tsunamiLevels = {
         'None': 'この地震による津波の心配はありません。',
@@ -122,7 +142,8 @@ async function fetchEarthquakeData() {
         pointsText += point;
     }
 
-    guidance = "   | [📌 ご案内] NanbuCameraの放送をご視聴いただきましてありがとうございます。本放送をご覧になられる方は必ず概要欄をご確認ください。 [🛑 本放送について] 本放送では、日本/韓国/台湾で地震が発生した際、音声と映像でお知らせいたします。急に音声が流れますので、音量にご注意ください。 [💻 使用ソフト] 本放送で使用しているソフトは以下の通りです。*印が付いているソフトは非配布ソフトです。 YDITS for Web / Nanbu Eq Service Bot Dev* / 強震モニタ / 사용자 맞춤형 지진정보서비스 / 地牛Wake Up! / Nanbu テロップ / Nanbu 時計 [🙏 開発者の皆様に感謝いたします。 | ⚠️ 配信の安定性について] 本放送は、できる限り安定した放送を心がけていますが、予期せぬトラブルにより配信が一時停止する場合がございます。その際は、ご理解のほどよろしくお願いいたします。 [📬 お問い合わせ] 本放送に関する、お問い合わせ又はご質問はX(旧: Twitter) @NanbuCamera まで、お願いいたします。 | v1.1.0"
+    version = "v 2.2.0"
+    guidance = "   | [📌 ご案内] NanbuCameraの放送をご視聴いただきましてありがとうございます。本放送をご覧になられる方は必ず概要欄をご確認ください。 [🛑 本放送について] 本放送では、日本/韓国/台湾で地震が発生した際、音声と映像でお知らせいたします。急に音声が流れますので、音量にご注意ください。 [💻 使用ソフト] 本放送で使用しているソフトは以下の通りです。*印が付いているソフトは非配布ソフトです。 YDITS for Web / Nanbu Eq Service Bot Dev* / 強震モニタ / 사용자 맞춤형 지진정보서비스 / 地牛Wake Up! / Nanbu テロップ / Nanbu 時計 [🙏 開発者の皆様に感謝いたします。 | ⚠️ 配信の安定性について] 本放送は、できる限り安定した放送を心がけていますが、予期せぬトラブルにより配信が一時停止する場合がございます。その際は、ご理解のほどよろしくお願いいたします。 [📬 お問い合わせ] 本放送に関する、お問い合わせ又はご質問はX(旧: Twitter) @NanbuCamera まで、お願いいたします。 | " + version
 
     let info;
     switch (type) {
