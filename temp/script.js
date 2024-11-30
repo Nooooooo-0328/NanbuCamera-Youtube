@@ -142,25 +142,27 @@ async function fetchEarthquakeData() {
         pointsText += point;
     }
 
-    version = " | 本テロップのバージョンは Ver 2.3.0 です。最終更新日: 10月20日"
-    text_1 = "[📌放送案内] NanbuCameraの地震監視放送をご視聴いただきましてありがとうございます。"
+    text_1 = "[📌放送案内] NanbuCameraの地震監視放送をご視聴いただきましてありがとうございます。必ず概要欄をご確認ください。"
     text_2 = "[🛑本放送について] 本放送では、日本/韓国/台湾 で地震が発生した際、音声と映像でお知らせいたします。急に音声が流れますので、音量にご注意ください。" 
-    text_3 = "[📬お問い合わせ] 本放送に関する、お問い合わせ又はご質問は X(旧: Twitter) @NanbuCamera まで、お願いいたします。"
-    guidance = text_1 + text_2 + text_3 + version
+    text_3 = "[🛠️使用しているソフトについて] 本放送で使用しているソフト等については、概要欄に記載していますので、ご確認ください。"
+    text_4 = "[🚧放送画面について] 現在、本放送では、日本語に加えて、韓国語、繁体字中国語、英語での表記を行っています。これは試験で行っているため、一部不正確な表現が含まれている可能性があります。"
+    text_5 = "[🌏多言語対応について] NanbuCameraでは、より多くの方にご利用いただけるよう、日本語に加えて、韓国語、繁体字中国語、英語での記載を行っています。日本語以外の言語については翻訳を使用しているため、一部不正確な表現が含まれる場合があります。"
+    version = " | 本テロップのバージョンは Ver 2.3.1 です。最終更新日: 11月30日"
+    guidance = text_1 + text_2 + text_3 + text_4 + text_5 + version
 
     let info;
     switch (type) {
         case "ScalePrompt":
             info = "震度速報";
-            text = `[📣${info}] ${jmaDatetime_time}ごろ、最大震度${shindo_}を観測する地震がありました。新しい情報が入り次第お伝え致します。`
+            text = `[📣${info}] ${jmaDatetime_time}ごろ、最大震度${shindo_}を観測する地震がありました。繰り返します。[📣${info}] ${jmaDatetime_time}ごろ、最大震度${shindo_}を観測する地震がありました。新しい情報が入り次第お伝え致します。`
             break;
         case "Destination":
             info = "震源に関する情報";
-            text = `[📣${info}] ${jmaDatetime_time}ごろ、${singen}で地震がありました。新しい情報が入り次第お伝え致します。`
+            text = `[📣${info}] ${jmaDatetime_time}ごろ、${singen}で地震がありました。繰り返します。[📣${info}] ${jmaDatetime_time}ごろ、${singen}で地震がありました。新しい情報が入り次第お伝え致します。`
             break;
         case "ScaleAndDestination":
             info = "震源 ・ 震度に関する情報";
-            text = `[📣${info}] ${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。新しい情報が入り次第お伝え致します。`
+            text = `[📣${info}] ${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。繰り返します。[📣${info}] ${jmaDatetime_time}ごろ、${singen}を震源とする、最大震度${shindo_}を観測する地震がありました。新しい情報が入り次第お伝え致します。`
             break;
         case "DetailScale":
             info = "各地の震度に関する情報";
