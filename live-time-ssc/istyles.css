@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'DSEG7';
+  src: url('./DSEG7ModernMini-Regular.woff') format('truetype');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: green;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  overflow: hidden;
+  text-align: center;
+}
+
+#clock {
+  font-size: 48px;
+  font-family: 'DSEG7', Arial, sans-serif;
+}
+
+#dayOfWeek {
+  margin-left: 10px;
+  padding: 5px;
+  vertical-align: middle;
+  animation-duration: 1s;
+  word-wrap: break-word;
+  opacity: 1;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+.fade-out {
+  animation-name: fade-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
