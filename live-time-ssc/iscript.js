@@ -1,9 +1,9 @@
 var languageIndex = 0;
 var languages = [
-    "NanbuCamera 地震配信放送 | ",
-    "NanbuCamera Earthquake Monitor Broadcast | ",
-    "NanbuCamera 지진 감시 방송 | ",
-    "NanbuCamera 地震監控播報 | ",
+    "Saitama Sora Cam 地震配信放送 | ",
+    "Saitama Sora Cam Earthquake Monitor Broadcast | ",
+    "Saitama Sora Cam 지진 감시 방송 | ",
+    "Saitama Sora Cam 地震監控播報 | ",
     ];
 var dayOfWeekLabels = [
     ['日', '月', '火', '水', '木', '金', '土'],
